@@ -1,0 +1,47 @@
+* {
+    font-family: monospace;
+}
+body {
+    margin: 0;
+}
+.chart {
+    margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+    footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+} 
+
+@media (max-width: 768px) {
+    footer {
+        position: inherit;
+        bottom: 0;
+        width: 100%;
+    }
+}
+
+/* system light theme */
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: #fff;
+        color: #333;
+    }
+    .chart {
+        background-color: #eee;
+    }
+}
+
+/* system dark theme */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #333;
+        color: #fff;
+    }
+    .chart {
+        background-color: #444;
+    }
+}

@@ -1,0 +1,94 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title บ้านอัจฉริยะ Promax
+
+        //- SEO Meta Tags
+        meta(name="description", content="บ้านอัจฉริยะ (ระบบเครื่องตรวจวัดการรั่วของก๊าซ เปลวไฟ และ อุณหภูมิ)")
+        meta(name="keywords", content="บ้านอัจฉริยะ, ระบบเครื่องตรวจวัดการรั่วของก๊าซ, เปลวไฟ, อุณหภูมิ")
+        meta(name="author", content="TinnerKun or NEXT#8233")
+        meta(name="robots", content="index, follow")
+        meta(name="revisit-after", content="1 days")
+        meta(name="language", content="Thai")
+        meta(name="generator", content="TinnerKun")
+        meta(name="googlebot", content="index, follow")
+        meta(name="google", content="nositelinkssearchbox")
+        
+        //- Open Graph / Facebook
+        meta(property="og:type", content="website")
+        meta(property="og:url", content="https://iot-tg.oiioioiiioooioio.download")
+        meta(property="og:title", content="บ้านอัจฉริยะ Promax")
+        meta(property="og:description", content="บ้านอัจฉริยะ (ระบบเครื่องตรวจวัดการรั่วของก๊าซ เปลวไฟ และ อุณหภูมิ)")
+        meta(property="og:image", content="https://cdn.discordapp.com/attachments/889652344202088458/1029684571895255060/9479DF5B-79DC-4C9B-A733-77E6ABA6EBC9.png")
+
+
+        link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css") 
+        link(rel="stylesheet", href="/css/style.css")
+    body 
+        .container
+            .row
+                .col-12.mt-2
+                    h2.text-center.text-uppercase
+                        | Sensor Data
+                    h6.text-center.text-uppercase#uptime
+                        | REALTIME 00/00/0000, 00:00:00 AM 
+            .row
+                .col-12.col-md-6
+                    h2.text-center.text-uppercase.mt-5
+                        | Temperature
+                    .chart
+                        canvas#temperature-chart
+                .col-12.col-md-6
+                    h2.text-center.text-uppercase.mt-5
+                        | Humidity
+                    .chart
+                        canvas#humidity-chart
+            .row
+                .col-12.col-md-6
+                    h2.text-center.text-uppercase.mt-5
+                        | Gas
+                    .chart
+                        canvas#gas-chart
+                .col-12.col-md-6
+                    h2.text-center.text-uppercase.mt-5
+                        | Overview
+                    .chart.p-3
+                        h4 ข้อมูลทั้งหมด รูปแบบ Chat Realtime
+                        table.table.table-dark.table-striped.table-hover.table-bordered#overview
+                            thead
+                                tr
+                                    th(scope="col") ชื่อของข้อมูล
+                                    th(scope="col") ค่าที่แสดง
+                                    th(scope="col") ระดับความเสี่ยง
+                            tbody
+                                tr
+                                    th(scope="row") Gas
+                                    td#gas_text
+                                    td#gas_check
+                                tr
+                                    th(scope="row") Flame
+                                    td#flame_text
+                                    td#flame_check
+                                tr
+                                    th(scope="row") Temperature
+                                    td#temperature_text
+                                    td#temperature_check
+                                tr
+                                    th(scope="row") Humidity
+                                    td#humidity_text
+                                    td#humidity_check
+
+
+
+        footer.text-center
+            p.mb-0 Tin & Cake © 2023 All Rights Reserved. 
+            p ชื่อโครงงาน "บ้านอัจฉริยะ (ระบบเครื่องตรวจวัดการรั่วของก๊าซ เปลวไฟ และ อุณหภูมิ)"
+
+        script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+        
+        script(src="https://cdn.socket.io/4.5.4/socket.io.min.js")
+        script(src="https://cdn.jsdelivr.net/npm/chart.js") 
+        script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js") 
+        script(src="/js/script.js") 

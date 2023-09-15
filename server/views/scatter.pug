@@ -1,0 +1,249 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Data Analysis
+
+        //- SEO Meta Tags
+        meta(name="description", content="บ้านอัจฉริยะ (ระบบเครื่องตรวจวัดการรั่วของก๊าซ เปลวไฟ และ อุณหภูมิ)")
+        meta(name="keywords", content="บ้านอัจฉริยะ, ระบบเครื่องตรวจวัดการรั่วของก๊าซ, เปลวไฟ, อุณหภูมิ")
+        meta(name="author", content="TinnerKun or NEXT#8233")
+        meta(name="robots", content="index, follow")
+        meta(name="revisit-after", content="1 days")
+        meta(name="language", content="Thai")
+        meta(name="generator", content="TinnerKun")
+        meta(name="googlebot", content="index, follow")
+        meta(name="google", content="nositelinkssearchbox")
+        
+        //- Open Graph / Facebook
+        meta(property="og:type", content="website")
+        meta(property="og:url", content="https://iot-tg.oiioioiiioooioio.download")
+        meta(property="og:title", content="บ้านอัจฉริยะ Promax")
+        meta(property="og:description", content="บ้านอัจฉริยะ (ระบบเครื่องตรวจวัดการรั่วของก๊าซ เปลวไฟ และ อุณหภูมิ)")
+        meta(property="og:image", content="https://cdn.discordapp.com/attachments/889652344202088458/1029684571895255060/9479DF5B-79DC-4C9B-A733-77E6ABA6EBC9.png")
+
+
+        link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css") 
+        link(rel="stylesheet", href="/css/style.css")
+        style. 
+            .chart {
+                min-height: 250px;
+            }
+    body 
+        .container
+            .row
+                .col-12.mt-2
+                    h2.text-center.text-uppercase
+                        | Data Analysis
+                    h6.text-center.text-uppercase#uptime
+                        | UPDATE TIME 00/00/0000, 00:00:00 AM
+            .row
+                .col-12.col-md-6
+                    h2.text-center.text-uppercase.mt-5
+                        | Temperature
+                    .chart
+                        canvas#temperature-chart
+                .col-12.col-md-6
+                    h2.text-center.text-uppercase.mt-5
+                        | Humidity
+                    .chart
+                        canvas#humidity-chart
+            .row
+                .col-12.col-md-6
+                    h2.text-center.text-uppercase.mt-5
+                        | Gas
+                    .chart
+                        canvas#gas-chart
+                .col-12.col-md-6
+                    h2.text-center.text-uppercase.mt-5
+                        | Overview
+                    .chart.p-3
+                        h4 ข้อมูลทั้งหมด รูปแบบ Chat 7 วัน
+                        table.table.table-dark.table-striped.table-hover.table-bordered#overview
+                            thead
+                                tr
+                                    th วันที่
+                                    th เวลา
+                                    th อุณหภูมิ
+                                    th ความชื้น
+                                    th ค่าแก๊ส
+                                    th ค่าไฟ
+                            tbody#overview-datain
+                                tr
+                                    td 00/00/0000
+                                    td 00:00:00 AM
+                                    td 00.00
+                                    td 00.00
+                                    td 00.00
+                                    td 00.00
+
+
+        footer.text-center
+            p.mb-0 Tin & Cake © 2023 All Rights Reserved. 
+            p ชื่อโครงงาน "บ้านอัจฉริยะ (ระบบเครื่องตรวจวัดการรั่วของก๊าซ เปลวไฟ และ อุณหภูมิ)"
+
+        script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+        script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js") 
+        script(src="https://cdn.jsdelivr.net/npm/chart.js") 
+        script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js") 
+        script.
+
+            let limit_gas = [200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200]
+
+            let temperatureChart = document.getElementById('temperature-chart').getContext('2d');
+            let humidityChart = document.getElementById('humidity-chart').getContext('2d');
+            let gasChart = document.getElementById('gas-chart').getContext('2d');
+            
+            function getdata_hour() {
+                axios.get('/data/hour')
+                    .then(function (response) {
+                        let data = response.data;
+
+                        let temperature_stored = [];
+                        let humidity_stored = [];
+                        let gas_stored = [];
+                        let timestamp_stored = [];
+
+                        let list = data.slice(Math.max(data.length - 24, 0)) 
+                        
+                        for (let i = 0; i < list.length; i++) {
+                            temperature_stored.push(list[i].temperature_value);
+                            humidity_stored.push(list[i].humidity_value);
+                            gas_stored.push(list[i].gas_value);
+                            timestamp_stored.push(list[i].timestamp);
+                        }
+                        
+
+                        let temperature = new Chart(temperatureChart, {
+                            type: 'bar',
+                            data: {
+                                labels: timestamp_stored,
+                                datasets: [{
+                                    label: 'อุณหภูมิ',
+                                    data: temperature_stored,
+                                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                    borderColor: 'rgba(255, 99, 132, 1)',
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+
+                        let humidity = new Chart(humidityChart, {
+                            type: 'bar',
+                            data: {
+                                labels: timestamp_stored,
+                                datasets: [{
+                                    label: 'ความชื้น',
+                                    data: humidity_stored,
+                                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                    borderColor: 'rgba(54, 162, 235, 1)',
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+                        
+                        let gas = new Chart(gasChart, {
+                            type: 'scatter',
+                            data: {
+                                labels: timestamp_stored,
+                                datasets: [{
+                                    type: 'bar',
+                                    label: 'ค่าแก๊ส',
+                                    data: gas_stored,
+                                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                                    borderColor: 'rgba(255, 206, 86, 1)',
+                                    borderWidth: 1
+                                },
+                                {
+                                    type: 'line',
+                                    label: 'ค่าที่ไม่ปกติ',
+                                    data: limit_gas,
+                                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                    borderColor: 'rgba(255, 99, 132, 1)',
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+
+            let uptime = document.getElementById('uptime');
+
+            setInterval(() => {
+                getdata_hour();
+                getdata_day();
+                uptime.innerHTML = `UPDATE TIME ${new Date().toLocaleDateString()}, ${new Date().toLocaleTimeString()}`
+            }, 1000 * 60 * 5);
+
+            uptime.innerHTML = `UPDATE TIME ${new Date().toLocaleDateString()}, ${new Date().toLocaleTimeString()}`
+
+            let overview = document.getElementById('overview-datain');
+            function getdata_day() {
+                axios.get('/data/day')
+                    .then(function (response) {
+                        let data = response.data;
+                        let list = data.slice(Math.max(data.length - 7, 0)) 
+
+                        let overview_html = '';
+                        for (let i = 0; i < list.length; i++) {
+                            overview_html += `
+                                <tr>
+                                    <td>${list[i].timestamp.split(' ')[0]}</td>
+                                    <td>${list[i].timestamp.split(' ')[1]}</td>
+                                    <td>${list[i].temperature_value}</td>
+                                    <td>${list[i].humidity_value}</td>
+                                    <td>${list[i].gas_value}</td>
+                                    <td>${list[i].flame_value == 1 ? 'ปกติ' : 'ผิดปกติ'}</td>
+                                </tr>
+                            `;
+                        }
+                        overview.innerHTML = overview_html;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+
+            getdata_day();
+            getdata_hour();
+
+            let setThemeTabble = document.getElementById("overview");
+
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                if (e.matches) setThemeTabble.classList.add("table-dark");
+                else setThemeTabble.classList.remove("table-dark");
+            });
+
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) setThemeTabble.classList.add("table-dark");
+            else setThemeTabble.classList.remove("table-dark");

@@ -1,0 +1,38 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title API By TinnerX (TinnerKun)
+        style.
+            * {
+                font-family: monospace;
+                font-size: 1.2rem;
+                padding: 0 1rem 1rem 0;
+            }
+            body {
+                background-color: #000;
+                color: #fff;
+            }
+    body 
+        table 
+            thead
+                tr
+                    th REST API
+                    th Description
+            tbody
+                tr
+                    td GET /data
+                    td Get All Data 1 Hour Ago (JSON)
+                tr
+                    td GET /data/average
+                    td Get Average Data 30 Seconds Ago (JSON)
+                tr
+                    td GET /data/average/:minute
+                    td Get Average Temperature Data :minute Minutes Ago (JSON)
+                tr
+                    td GET /data/day
+                    td Get All Data 1 Day Ago (JSON)
+                tr
+                    td GET /data/hour
+                    td Get All Data 1 Hour Ago (JSON)
